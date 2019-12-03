@@ -1,0 +1,371 @@
+*{
+  font-family: 'Schoolbell', cursive;
+}
+h1,h2,h3,h4,h5,h6, .h1,.h2,.h3,.h4,.h5,.h6{
+  font-family: 'Eater', cursive;
+}
+#titleMain{
+
+}
+
+#monsterCanvas{
+  box-shadow: 0px 0px 8px #999;
+  width: 570px;
+  height: 500px;
+}
+
+#canvasControls{
+  margin: 0 auto;
+}
+
+#imageSection{
+  border: 1px solid red;
+}
+
+
+/************** Assembly Page ********************************/
+#assemblyFrame{
+  box-shadow: 0px 0px 10px blue;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  min-width: 570px;
+}
+
+.positionParts{
+  position: absolute;
+}
+
+#assemblyTools table{
+  margin: 0 auto;
+}
+
+/** Begin Assembly page display search **/
+#searchDisp{
+  max-height: 160px;
+  min-height: 160px;
+  overflow-y: auto;
+}
+
+#searchDisp img{
+  box-shadow: 2px 4px 4px #999;  
+  display: block;
+  float: left;
+  margin: 2%;
+  position: inherit;
+  width: 10%;
+  height: 10%;
+  transition: all ease-in-out .18s;
+}
+
+#searchDisp img:hover{
+  box-shadow: 6px 8px 14px #999;
+  transition: all ease-in-out .18s;
+}
+/** End Assembly page display search **/
+.alerts p{
+  font-size: 2em;
+  margin: auto;
+  padding: 10%;
+}
+
+#monControlRow{
+  margin: 2% 0;
+}
+
+.form-check{
+  align-self: center;
+  margin: auto;
+  text-align: center;
+}
+
+#searchNameList{  
+  background-color: #fff;
+  box-shadow: 2px 4px 4px #999;
+  max-height: 400px;
+  overflow-y: auto;
+  position: absolute;
+}
+#searchNameList ul{
+  max-height: 400px;
+  overflow-y: auto;
+  list-style: none;
+  position: relative;  
+  z-index: 1000;
+}
+#searchNameList li:hover{
+  background-color: #abc;
+  transition: all ease .1s;
+}
+
+#searchMonsterNameList{
+  background-color: #fff;
+  box-shadow: 2px 4px 4px #999;
+  max-height: 400px;
+  overflow-y: auto;
+  position: absolute;
+}
+#searchMonsterNameList ul{
+  max-height: 400px;
+  overflow-y: auto;
+  list-style: none;
+  position: relative;  
+  z-index: 1000;
+}
+#searchMonsterNameList li:hover{
+  background-color: #abc;
+  transition: all ease .1s;
+}
+
+/*************************** End Assembly Page *****************************/
+
+#sampleSizeDiv{
+  display: flex;
+  height: 50px;
+  margin: 10px;
+  width: 50px;
+}
+#samplePaintSize{
+  align-self: center;
+  margin: auto;
+  width: 10%;
+}
+
+
+/************************ Begin Gallery Page **************************/
+#pageRow{
+  width: 100%;
+  height: 45px;
+  margin: 1%;
+  position: relative;
+}
+
+#pageLeft{
+  position: absolute;
+  background-image: url(/img/page-left.png);
+  height: 45px;
+  width: 45px;
+  left: 0px;
+}
+#pageLeft:active{
+  background-image: url(/img/page-left-press.png);
+}
+#pageRight{
+  position: absolute;
+  background-image: url(/img/page-right.png);
+  height: 45px;
+  width: 45px;
+  right: 0px;
+}
+#pageRight:active{
+  background-image: url(/img/page-right-press.png);
+}
+#numLeft{
+  position: absolute;
+  left: 45px;
+  font-size: 1.5em;
+  font-weight: 400;
+}
+#numRight{
+  position: absolute;
+  right: 45px;
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+.galleryImage{
+  background: #fff center no-repeat;
+  background-size: contain;
+  box-shadow: 0px 0px 5px #66c;
+  display: inline-block;
+  margin: 1%;
+  overflow: hidden;
+  width: 228px;
+  height: 200px;
+  position: relative;
+  z-index: 0;
+}
+.galleryImage img{
+  position: absolute;
+}
+
+.infoContainer{
+  background-color: #4d594e;
+  border-radius: 25px;
+  padding: 10px;
+  position: absolute;
+  top: 40%;
+  left: 2%;
+  opacity: 0;
+  animation-name: infoCon;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+@keyframes infoCon{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+.infoContainer div{
+  color: #b5bdd7;
+  font-size: 1.2em;
+}
+.infoContainer span{
+  color: #a8bbf8;
+  font-size: 1.4em;
+  font-weight: 400;
+}
+.monsterInfo{
+
+}
+.creatorInfo{
+
+}
+.bgInfo{
+
+}
+
+.animContainer{
+  z-index: 2000;
+  position: absolute;
+  top: 33%;
+  left: 28%;
+  width: 100%;
+}
+.anim0{
+  position: relative;
+  box-shadow: 0px 0px 10px #444;
+  background: #fff center no-repeat;
+  background-size: contain;
+  animation-name: gallDanceZero;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+.anim0 img {
+  position: absolute;
+}
+@keyframes gallDanceZero{
+  from{    
+    width: 228px;
+    height: 200px;
+    transform: rotate(0deg);
+  }
+  to{
+    width: 570px;
+    height: 500px;
+    transform: rotate(2880deg);
+  }
+}
+.anim1{
+  position: relative;
+  box-shadow: 0px 0px 10px #444;
+  background: #fff center no-repeat;
+  background-size: contain;
+  animation-name: gallDanceOne;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+.anim1 img {
+  position: absolute;
+}
+@keyframes gallDanceOne{
+  0%{    
+    width: 228px;
+    height: 200px;
+  }
+  10%{
+    width: 570px;
+    height: 500px;
+  }
+  30%{
+    width: 342px;
+    height: 300px;
+  }
+  50%{
+    width: 570px;
+    height: 500px;
+  }
+  60%{
+    width: 456px;
+    height: 400px;
+  }
+  70%{
+    width: 570px;
+    height: 500px;
+  }
+  82.5%{
+    width: 513px;
+    height: 450px;
+  }
+  90%{
+    width: 570px;
+    height: 500px;
+  }
+  95%{
+    width: 542px;
+    height: 475px;
+  }
+  100%{
+    width: 570px;
+    height: 500px;
+  }
+}
+.anim2{
+  position: relative;
+  box-shadow: 0px 0px 10px #444;
+  background: #fff center no-repeat;
+  background-size: contain;
+  animation-name: gallDanceTwo;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+.anim2 img {
+  position: absolute;
+}
+@keyframes gallDanceTwo{
+  0%{    
+    width: 228px;
+    height: 200px;
+    transform: rotate(0deg);
+  }
+  20%{
+    width: 296px;
+    height: 260px;
+    transform: rotate(45deg);
+  }
+  40%{
+    width: 365px;
+    height: 320px;
+    transform: rotate(-45deg);
+  }
+  60%{
+    width: 433px;
+    height: 380px;
+    transform: rotate(45deg);
+  }
+  80%{
+    width: 502px;
+    height: 440px;
+    transform: rotate(-45deg);
+  }
+  100%{
+    width: 570px;
+    height: 500px;
+    transform: rotate(0deg);
+  }
+
+}
+/************************ End Gallery Page ****************************/
+/************************ Home Page ****************************/
+
+/************************ End Home Page ****************************/
+
+
+/*********************** multi page ***********************************/
+.popover {
+    border: 2px solid #00F70D;
+}

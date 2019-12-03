@@ -1,0 +1,33 @@
+<!--<div class="container">
+  <form id="userForm">
+    <fieldset>
+      <legend>Please Log In</legend>
+      UserName: <input type="text" name="userName"><br>
+      Password: <input type="password" name="psw">
+      <input type="submit" name="submit">
+    </fieldset>
+  </form>
+</div>
+-->
+
+<h2 class="text-center display-4">Welcome To</h2>
+<h1 class="text-center display-1" id="titleMain">monsters 340</h1>
+<div class="container border rounded p-s5 mb-5" style="max-width: 400px;">
+    <h3 class="text-center mb-4">Sign In</h3>
+    {{#if invalid}}
+    <div style="color:red">Invalid username or password.</div>
+    {{/if}}
+    <form action="/login" method="post">
+        <div class="form-group">
+            <label for="userName">User Name</label>
+            <input type="text" id="userName" name="userName" class="form-control" placeholder="User Name">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+        </div>
+
+       <input type="submit" value="Sign In" id="signInButton" class="btn btn-info btn-block btn-lg">
+        <p class="text-center m-2"> No account? <a class="text-info" href="./createAccount">Create Account!</a></p>
+    </form>
+</div>

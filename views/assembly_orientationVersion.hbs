@@ -1,0 +1,137 @@
+<div class="container">
+  <div id="searchDisp" class="row">
+    
+  </div>
+  <div class="form-group">
+    <div class="row align-items-end">
+      <div class="col-md-3">
+        <div class="input-group" >
+          <label class="input-group-text" for="searchName">Name</label>
+          <input id="searchName" type="text" class="form-control" autocomplete="grawr">
+        </div>
+        <div id="searchNameList"></div>
+      </div>
+      <div class="col-md-4 input-group">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="searchType">Search Part Type</label>
+      </div>
+      <select class="custom-select" id="searchType">
+        {{#each partType}}
+        <option value="{{this.id}}">{{this.type_name}}</option>
+        {{/each}}
+      </select>
+      </div>
+      <div class="form-check col-md-2" >
+        <input class="form-check-input" type="checkbox" id="myParts" checked>
+        <label class="form-check-label" for="myParts">
+          My Parts Only
+        </label>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary" id="clearAll" data-toggle="modal" data-target="#clearConfirmation">Clear Assembly</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div id="assemblyFrame"></div>
+    </div>
+    <div id="assemblyTools" class="col-md-6">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr >
+            <th scope="col">name</th>
+            <th scope="col">size</th>
+            <th scope="col">orient</th>
+            <th scope="col">layer</th>
+            <th scope="col">remove</th>
+          </tr>
+        </thead>
+        <tbody id="partTable">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row align-items-end" id="monControlRow">
+    <div class="col-md-3 input-group" id="monControlGroup">
+      <label class="input-group-text" for="monName">Name Monster</label>
+      <input id="monName" type="text" class="form-control" data-mid="alpha" autocomplete="grawr">
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-primary" data-toggle="modal" id="saveMo" data-target="#saveMonster">Save Monster</button>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group" >
+          <div id="searchMonsterNameList"></div>
+          <label class="input-group-text" for="searchMonsterName">Load Monster</label>
+          <input id="searchMonsterName" type="text" class="form-control" autocomplete="grawr">
+        </div>
+      </div>
+  </div>
+</div>
+
+<!---------------------------- Modals ----------------------------------->
+
+<!-- Clear assembly modal -->
+<div class="modal fade alerts" id="clearConfirmation" tabindex="-1" role="dialog" aria-labelledby="clearAllConfirm">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Are you sure you want to clear the assembly?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="dismissCanvas">No</button>
+        <button type="button" class="btn btn-primary" id="clearConfirm">Clear</button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<!-- No name Modal -->
+<div class="modal fade alerts" id="noName" tabindex="-1" role="dialog" aria-labelledby="noMoName">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <p>GRAWR!!<br>Name your monster!</p>
+    </div>
+  </div>
+</div> 
+
+<!-- Save Canvas Modal -->
+<div class="modal fade" id="saveMonster" tabindex="-1" role="dialog" aria-labelledby="saveName" aria-hidden="true">
+  <div class="modal-dialog" role="document" id="saveMonsterModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="saveName"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="saveImage">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="dismissCanvas">Close</button>
+        <button type="button" class="btn btn-primary" id="saveCanvas"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Canvas is saved Modal -->
+<div class="modal fade alerts" id="saveSuccess" tabindex="-1" role="dialog" aria-labelledby="saveSuccessful">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <p>Your monster has been saved!!</p>
+    </div>
+  </div>
+</div>
+
+<!-- Monster Name is updated Modal -->
+<div class="modal fade alerts" id="nameChange" tabindex="-1" role="dialog" aria-labelledby="nameChanged">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <p>Your monster's name has been changed!!</p>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,166 @@
+<div class="container">
+	<div class="form-row">
+		<div class="form-group col-auto col-md-2 col-lg-1 mr-2">
+			<label for="retrievePartDropdown" class="">Parts
+			</label>
+		</div>
+		<div class="form-group col-auto">
+			<select id="retrievePartDropdown" class="form-control" style="width:200px">
+				<!--				{{#each userParts}}
+				<option value="{{this.id}}">{{this.name}}</option>
+				{{/each}}
+--> </select>
+		</div>
+
+		<div class="form-group col-auto">
+			<button class="btn btn-success" id="retrievePart">Retrieve</button>
+		</div>
+		<div class="form-group col-auto">
+			<button class="btn btn-danger" id="deletePart">Delete</button>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="form-group col-auto col-md-2 col-lg-1 mr-2">
+			<label for="retrieveBackgroundDropdown" class="">Backgrounds
+			</label>
+		</div>
+		<div class="form-group col-auto">
+			<select id="retrieveBackgroundDropdown" class="form-control" style="width:200px">
+				<!--				{{#each userBackgrounds}}
+				<option value="{{this.id}}">{{this.name}}</option>
+				{{/each}}
+--> </select>
+		</div>
+
+		<div class="form-group col-auto">
+			<button class="btn btn-success" id="retrieveBackground">Retrieve</button>
+		</div>
+		<div class="form-group col-auto">
+			<button class="btn btn-danger" id="deleteBackground">Delete</button>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<canvas id="monsterCanvas" width="570" height="500">
+			</canvas>
+		</div>
+		<div class="col-md-3 offset-md-2">
+			<br>
+			<br>
+			<input type="text" class="color" id="chooseColor" value="#10DE1B" />
+			<br>
+			<br>
+			<button type="button" id="colorErase" class="btn btn-warning">Erase</button>
+			<br>
+			<br>
+			<div>
+				<button type="button" class="btn btn-secondary" id="decreaseSize" style="font-size:40px">-</button>
+				<button type="button" class="btn btn-secondary" id="increaseSize" style="font-size:40px">+</button>
+			</div>
+			<div>
+				<label>Pen Size</label>
+				<div id="sampleSizeDiv">
+					<img id="samplePaintSize" src="/img/size-dot.png">
+				</div>
+				<br>
+
+				<button type="button" class="btn btn-danger" id="clearCanvas">Clear Canvas</button>
+				<br>
+				<br>
+				<br>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<div class="row align-items-end mt-3">
+			<!-- hidden input - use to keep track of partId for update -->
+			<div>
+				<input id="inputId" type="hidden">
+			</div>
+			<div class="col-md-4 input-group">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputName">Name</label>
+				</div>
+				<input id="inputName" type="text" class="form-control">
+			</div>
+			<div class="col-md-4 input-group">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputType">Type</label>
+				</div>
+				<select class="custom-select" id="inputType">
+					{{#each partType}}
+					<option value="{{this.id}}">{{this.type_name}}</option>
+					{{/each}}
+					<option value="background">background</option>
+				</select>
+			</div>
+			<div class="col-md-4 input-group justify-content-around">
+				<button type="button" class="btn btn-primary col-md-5" data-toggle="modal" id="savePa"
+					data-target="#savePart">Save As</button>
+				<button type="button" class="btn btn-success col-md-5" data-toggle="modal" id="updatePa"
+					data-target="#updatePart" disabled="true">Update</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal for save as -->
+<div class="modal fade" id="savePart" tabindex="-1" role="dialog" aria-labelledby="saveName" aria-hidden="true">
+	<div class="modal-dialog" role="document" style="min-width: 600px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="saveName"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" id="saveImage">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="saveCanvas" data-dismiss="modal">Save Part</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal for update -->
+<div class="modal fade" id="updatePart" tabindex="-1" role="dialog" aria-labelledby="updateName" aria-hidden="true">
+	<div class="modal-dialog" role="document" style="min-width: 600px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-10">
+							<h5 class="modal-title" id="updateName"></h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-10">
+							<h5 style="color:#858585" class="modal-title" id="oldInfo"></h5>
+						</div>
+					</div>
+				</div>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+			</div>
+
+			<div class="modal-body" id="updateImage">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" id="closeModal" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-success" id="updateCanvas" data-dismiss="modal">Update</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>

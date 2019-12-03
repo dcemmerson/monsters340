@@ -163,12 +163,12 @@ function searchPartByName(res, mysql, context, name, uid, complete){
     let insert = 0;
     name = `%${name}%`;
     if(isNaN(uid)){
-        console.log(`ifuserID: ${uid}`);
+//        console.log(`ifuserID: ${uid}`);
         sql = 'select id, name from parts where name like ? limit 20';
         insert = [name];
     }
     else{
-        console.log(`elseuserID: ${uid}`);
+//        console.log(`elseuserID: ${uid}`);
         sql = 'select id, name from parts where userId = ? and name like ? limit 20';
         insert = [uid, name];
     }
@@ -177,7 +177,7 @@ function searchPartByName(res, mysql, context, name, uid, complete){
             res.write(JSON.stringify(error));
             res.end();
         }
-        console.log(results);
+//        console.log(results);
         complete(results);
     });
 }
@@ -194,7 +194,7 @@ function getPartById(res, mysql, context, partId, complete){
             res.write(JSON.stringify(error));
             res.end();
         }
-	console.log(results);
+//	console.log(results);
         complete(results);
     });
 }
@@ -273,7 +273,7 @@ function searchMonsterByName(res, mysql, context, uid, name, complete){
             res.write(JSON.stringify(error));
             res.end();
         }
-        console.log([results]);
+//        console.log([results]);
         complete(results);
     });
 }
@@ -363,7 +363,7 @@ function getUserMonsterCount(res, mysql, uid, context, complete){
 function getMonsterGallery(res, mysql, page, context, complete){
     let sql = `SELECT * FROM (SELECT u.username as userName, m.name as monsterName, m.file as monsterBlob, m.size as size, m.xCoord as xCoord, m.yCoord as yCoord, b.name as bgName, b.file as backgroundBlob, ub.username as backgroundUser,ROW_NUMBER() OVER (ORDER BY m.name ASC) AS RowNum FROM monster m INNER JOIN background b on m.backgroundId = b.id INNER JOIN user ub on b.userId = ub.id INNER JOIN user u on m.userId = u.id) as Results WHERE RowNum>? AND RowNum<=?`;
     let insert = [(page-1)*limitPerPage, (page-1)*limitPerPage + limitPerPage];
-    console.log(`insert: ${[insert]}`);
+//    console.log(`insert: ${[insert]}`);
     // let sql = 'SELECT u.username as userName, m.name as monsterName, m.file as monsterBlob, m.size as size, m.xCoord as xCoord, m.yCoord as yCoord, b.name as bgName, b.file as backgroundBlob, ub.username as backgroundUser FROM monster m INNER JOIN background b on m.backgroundId = b.id INNER JOIN user ub on b.userId = ub.id INNER JOIN user u on m.userId = u.id';
     mysql.pool.query(sql, insert, function(error, results, fields){
     if(error){
@@ -386,7 +386,7 @@ function getUserMonsterGallery(res, mysql, uid, page, context, complete){
       res.write(JSON.stringify(error));
       res.end();
     }
-    console.log(`results: ${results[0].userName}`);
+//    console.log(`results: ${results[0].userName}`);
     complete(results);
   });
 }
@@ -428,7 +428,7 @@ function getUserId(res, mysql, context, username, complete){
 //requires id and then context.userId = password - encrypted
 function getUserPassword(res, mysql, context, id,complete){
     let sql = `SELECT password FROM user WHERE id = ?`;
-    console.log(id);
+//    console.log(id);
  
     let values = [id];
     
@@ -712,16 +712,16 @@ function getSingleBackground(res, mysql, context, backgroundId, complete){
 //xCoord, and yCoord
 function updateMonsterBackground(req,res,mysql,context,userId,monsterId,backgroundId,size,xCoord,yCoord,complete){
     if(userId != req.session.userId){
-	console.log(userId);
-	console.log(req.session.userId);
+//	console.log(userId);
+//	console.log(req.session.userId);
 	res.end();//this will only be used if user illegally messed with client side code -they are on their own at that point!
     }
     else{
 	let sql = `UPDATE monster SET backgroundId=?,size=?,xCoord=?,yCoord=? WHERE id=?`;
 	let insert = [backgroundId,size,xCoord,yCoord,monsterId];
 	
-	console.log(sql);
-	console.log(insert);
+//	console.log(sql);
+//	console.log(insert);
 	mysql.pool.query(sql, insert,  function(error,results,flds){
             if(error){
                 res.write(JSON.stringify(err));
@@ -784,8 +784,8 @@ function insMonster(res, mysql, context, name, blob, pArray, uid, complete){
     let sql = `INSERT INTO monster (name, userId, file) VALUES (?,?,?)`;
     let insert = [name, uid, blob];
    
-    console.log(insert);
-    console.log(sql);
+//    console.log(insert);
+//    console.log(sql);
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
             res.write(JSON.stringify(error));
@@ -793,7 +793,7 @@ function insMonster(res, mysql, context, name, blob, pArray, uid, complete){
         }
         //new monster id
 
-        console.log(`monster insert results: ${results}`);
+//        console.log(`monster insert results: ${results}`);
         mid = results.insertId;        
         context.mid = results.insertId;
 
@@ -802,13 +802,13 @@ function insMonster(res, mysql, context, name, blob, pArray, uid, complete){
         for(let p = 0; p < pArray.length; p++){
             pArray[p] = [mid].concat(pArray[p]);
         }
-        console.log([pArray]);
+//        console.log([pArray]);
         mysql.pool.query(sql, [pArray], function(err,rsl,flds){
             if(error){
                 res.write(JSON.stringify(err));
                 res.end();
             }
-            console.log(rsl.affectedRows);
+//            console.log(rsl.affectedRows);
             complete(rsl);
         });
     });
@@ -1410,7 +1410,7 @@ app.get('/updateMonsterName', auth, function(req,res){
 app.get('/getPartsByName', auth, function(req,res){
     let context = [];
     let uid = 0;
-    console.log(req.query.mine);
+//    console.log(req.query.mine);
     if(req.query.mine == 'true'){
         uid = req.session.userId;
     }
@@ -1454,8 +1454,8 @@ app.get('/getMonsterById', auth, function(req,res){
     let context = [];
     getMonsterAssemblyById(res, mysql, context, req.query.mid, complete);
     function complete(rows){
-        console.log('returning getMonsterById');
-        console.log([rows]);
+//        console.log('returning getMonsterById');
+//        console.log([rows]);
         context.push({});
         res.send(rows);
         res.end();
@@ -1512,7 +1512,7 @@ app.post('/retrieveMonstersAndBackgrounds',auth,function(req,res){
     
 });
 app.post('/updateMonsterBackgroundCombo', auth, upload.any(), function(req,res,next){
-    console.log(req.body);
+//    console.log(req.body);
     var context ={};
                           //req,res,mysql,context,userId,monsterId,backgroundId,size,xCoord,yCoord,complete)
     updateMonsterBackground(req,res,mysql,context,req.session.userId,req.body.monsterId,req.body.backgroundId,req.body.sizeMo,req.body.xCoordMo,req.body.yCoordMo,complete);

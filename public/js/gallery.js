@@ -1,3 +1,4 @@
+const ROOT = '/monsters';
 window.addEventListener('load', function(){
 let galleryDisplay = document.getElementById('galleryDisplay');
 let pageRow = document.getElementById('pageRow');
@@ -13,7 +14,7 @@ function clearSpace(){
 function getCount(complete){
     let mine = document.querySelector('#myMonstersOnly').checked;
     let req = new XMLHttpRequest();
-    req.open('GET', `/getMonsterCount?mine=${mine}`, true);
+    req.open('GET', `${ROOT}/getMonsterCount?mine=${mine}`, true);
 
     req.addEventListener('load', function(){
         if(req.status >= 200 && req.status < 400){
@@ -39,7 +40,7 @@ function getGallery(){
     console.log('running');
     let mine = document.querySelector('#myMonstersOnly').checked;
     let req = new XMLHttpRequest();
-    req.open('GET', `/getGallery?mine=${mine}&page=${page}`, true);
+    req.open('GET', `${ROOT}/getGallery?mine=${mine}&page=${page}`, true);
 
     req.addEventListener('load', function(){
         if(req.status >= 200 && req.status < 400){
@@ -107,7 +108,7 @@ function makePic(pic){
             if(pic.bgName != 'empty'){
                 let bgInfo = document.createElement('div');
                 bgInfo.setAttribute('class', 'bgInfo');
-                bgInfo.innerHTML = `Backgound <span>${pic.bgName}</span> by <span>${pic.backgroundUser}</span>`;
+                bgInfo.innerHTML = `Background <span>${pic.bgName}</span> by <span>${pic.backgroundUser}</span>`;
                 infoContainer.appendChild(bgInfo);
             }            
             let animContainer = document.createElement('div');
@@ -203,7 +204,7 @@ document.getElementById('searchMonsterName').addEventListener('input', function(
     document.getElementById('searchMonsterNameList').innerHTML = '';
     let name = document.getElementById('searchMonsterName').value;
     req = new XMLHttpRequest();
-    req.open('GET', `/getMonsterByName?name=${name}`, true);
+    req.open('GET', `${ROOT}/getMonsterByName?name=${name}`, true);
 
     req.addEventListener('load', function(){
         if(req.status >= 200 && req.status < 400){
@@ -233,7 +234,7 @@ function runSearchMonsterList(mlist){
             clearSpace();
             sl.value = opt.textContent;
             req = new XMLHttpRequest();
-            req.open('GET', `/getSingleGalleryById?mid=${opt.value}`, true);
+            req.open('GET', `${ROOT}/getSingleGalleryById?mid=${opt.value}`, true);
             req.addEventListener('load', function(){
                 if(req.status >= 200 && req.status < 400){
                     console.log("Success: " + req.statusText);

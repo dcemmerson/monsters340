@@ -1,3 +1,4 @@
+const ROOT = '/monsters';
 //global variables used for updating parts/backgrounds.
 //used to display old part/background name and type to user
 //in addition to being used to validate user's update
@@ -404,7 +405,7 @@ function updatePartsDropdown(){
     
 
     req = new XMLHttpRequest();
-    req.open('GET','/getAllPartNames',true); 
+    req.open('GET',`${ROOT}/getAllPartNames`,true); 
     
     req.addEventListener('load',function(response){    
 	let res = JSON.parse(response.currentTarget.responseText);
@@ -432,7 +433,7 @@ function updateBackgroundsDropdown(){
     }
     
     req = new XMLHttpRequest();
-    req.open('GET','/getAllBackgroundNames',true); 
+    req.open('GET',`${ROOT}/getAllBackgroundNames`,true); 
     
     req.addEventListener('load',function(response){    
 	let res = JSON.parse(response.currentTarget.responseText);
@@ -458,7 +459,7 @@ function retrievePart(context){
     let partId = document.getElementById("retrievePartDropdown").value;
     
     req = new XMLHttpRequest();
-    req.open('GET','/retrievePart?partId=' + partId,true); 
+    req.open('GET',`${ROOT}/retrievePart?partId=${partId}`,true); 
     
 
     
@@ -491,7 +492,7 @@ function retrieveBackground(context){
     let backgroundId = document.getElementById("retrieveBackgroundDropdown").value;
     
     req = new XMLHttpRequest();
-    req.open('GET','/retrieveBackground?backgroundId=' + backgroundId,true); 
+    req.open('GET',`${ROOT}/retrieveBackground?backgroundId=${backgroundId}`,true); 
     
 
     
@@ -542,7 +543,7 @@ function saveCanvas(context,update){
 	    //if background is selected option in dropdown, we need to save canvas to background table
 	    if(type == "background"){
 
-		req.open('POST','/updateBackground',true);
+		req.open('POST',`${ROOT}/updateBackground`,true);
 
 		req.addEventListener('load',function(response){
 		    document.getElementById('monsterCanvas').getContext("2d").clearRect(0, 0, context.canvas.width, context.canvas.height) //clear canvas
@@ -553,7 +554,7 @@ function saveCanvas(context,update){
 		
 	    }
 	    else{
-		req.open('POST','/updatePart',true); 
+		req.open('POST',`${ROOT}/updatePart`,true); 
 
 		req.addEventListener('load',function(response){
 		    document.getElementById('monsterCanvas').getContext("2d").clearRect(0, 0, context.canvas.width, context.canvas.height) //clear canvas
@@ -570,7 +571,7 @@ function saveCanvas(context,update){
 
 	    //if background is selected option in dropdown, we need to save canvas to background table
 	    if(type == "background"){
-		req.open('POST','/sendBackgroundToDatabase',true);
+		req.open('POST',`${ROOT}/sendBackgroundToDatabase`,true);
 
 		req.addEventListener('load',function(response){
 		    document.getElementById('monsterCanvas').getContext("2d").clearRect(0, 0, context.canvas.width, context.canvas.height) //clear canvas
@@ -581,7 +582,7 @@ function saveCanvas(context,update){
 		
 	    }
 	    else{
-		req.open('POST','/sendPartToDatabase',true); 
+		req.open('POST',`${ROOT}/sendPartToDatabase`,true); 
 		//		req.responseType = "blob";	
 		req.addEventListener('load',function(response){
 		    document.getElementById('monsterCanvas').getContext("2d").clearRect(0, 0, context.canvas.width, context.canvas.height) //clear canvas
@@ -604,7 +605,7 @@ function deletePart(){
     let context = document.getElementById('monsterCanvas').getContext("2d");
     let partId = document.getElementById("retrievePartDropdown").value;
     req = new XMLHttpRequest();
-    req.open('GET','/deletePart?partId=' + partId,true); 
+    req.open('GET',`${ROOT}/deletePart?partId=${partId}`,true); 
     
     req.addEventListener('load',function(response){    
 	document.getElementById('monsterCanvas').getContext("2d").clearRect(0, 0, context.canvas.width, context.canvas.height) //clear canvas
@@ -619,7 +620,7 @@ function deleteBackground(){
     let context = document.getElementById('monsterCanvas').getContext("2d");
     let backgroundId = document.getElementById("retrieveBackgroundDropdown").value;
     req = new XMLHttpRequest();
-    req.open('GET','/deleteBackground?backgroundId=' + backgroundId,true); 
+    req.open('GET',`${ROOT}/deleteBackground?backgroundId=${backgroundId}`,true); 
     
     req.addEventListener('load',function(response){    
 	document.getElementById('monsterCanvas').getContext("2d").clearRect(0, 0, context.canvas.width, context.canvas.height) //clear canvas

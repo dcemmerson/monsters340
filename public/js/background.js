@@ -1,3 +1,4 @@
+const ROOT = '/monsters';
 var loggedInUserId; //used for client side verification to allow/not allow user to update monster-background comob
 //additional checking is done server side so user cannot bypass button
 
@@ -159,7 +160,7 @@ window.addEventListener('DOMContentLoaded', function(){
 	context.onlyMyBackgrounds = document.getElementById('onlyMyBackgrounds').checked;
 	
 	let req = new XMLHttpRequest();
-	req.open('POST','/retrieveMonstersAndBackgrounds',true);
+	req.open('POST',`${ROOT}/retrieveMonstersAndBackgrounds`,true);
 	req.setRequestHeader("content-type","application/json");
 	req.addEventListener('load',function(response){    
 	    let res = JSON.parse(response.currentTarget.responseText);
@@ -370,9 +371,7 @@ window.addEventListener('DOMContentLoaded', function(){
 		var context = {};
 
 		let req = new XMLHttpRequest();
-
-		
-		req.open('POST','/getSingleBackground',true); 
+		req.open('POST',`${ROOT}/getSingleBackground`,true); 
 		req.setRequestHeader('content-type','application/json');
 		
 		req.addEventListener('load',function(response){
@@ -454,24 +453,12 @@ window.addEventListener('DOMContentLoaded', function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     
 //event listener to dynamically update size of monster image as user changes numbers
     document.getElementById('increaseSize').addEventListener('input',function(input){
 	document.getElementById('assemblyFrame').childNodes[0].style.width = document.getElementById('increaseSize').value + "%";
 
     });
-
 
     //**** first save button
     let sendAddress = 0;
@@ -480,7 +467,7 @@ window.addEventListener('DOMContentLoaded', function(){
     document.getElementById('saveCombo').addEventListener('click', event => {
 	if(validSelections()){
 
-            sendAddress = "/updateMonsterBackgroundCombo";
+            sendAddress = `${ROOT}/updateMonsterBackgroundCombo`;
             document.getElementById('saveName').textContent = "Keep these together??";
             document.getElementById('saveCanvas').textContent = "Update";
 
@@ -633,7 +620,7 @@ function validSelections(){
 function getLoggedInUser(){
         
     let req = new XMLHttpRequest();
-    req.open('GET','/getUserId',true); 
+    req.open('GET',`${ROOT}/getUserId`,true); 
     
     req.addEventListener('load',function(response){
 	

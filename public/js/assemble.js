@@ -1,3 +1,4 @@
+const ROOT = '/monsters';
 window.addEventListener('load', function(){
 
   var assemblyFrame = document.getElementById('assemblyFrame');
@@ -236,7 +237,7 @@ document.getElementById('clearConfirm').addEventListener('click', event => {
 	let name = document.getElementById('searchName').value;
 	let mine = document.querySelector('#myParts').checked;
 	let req = new XMLHttpRequest();
-	req.open('GET', `/getPartsByName?name=${name}&mine=${mine}`, true);
+	req.open('GET', `${ROOT}/getPartsByName?name=${name}&mine=${mine}`, true);
 	
 	req.addEventListener('load', function(){
             if(req.status >= 200 && req.status < 400){
@@ -265,7 +266,7 @@ function runSearchList(plist){
         opt.addEventListener('click', function(){
             document.getElementById('searchName').value = opt.textContent;
             let req = new XMLHttpRequest();
-            req.open('GET', `/getPartsById?pid=${opt.getAttribute('data-pid')}`, true);
+            req.open('GET', `${ROOT}/getPartsById?pid=${opt.getAttribute('data-pid')}`, true);
             req.addEventListener('load', function(){
                 if(req.status >= 200 && req.status < 400){
                     console.log("Success: " + req.statusText);
@@ -300,7 +301,7 @@ document.getElementById('searchMonsterName').addEventListener('input', function(
     document.getElementById('searchMonsterNameList').innerHTML = '';
     let name = document.getElementById('searchMonsterName').value;
     req = new XMLHttpRequest();
-    req.open('GET', `/getMonsterByName?name=${name}`, true);
+    req.open('GET', `${ROOT}/getMonsterByName?name=${name}`, true);
 
     req.addEventListener('load', function(){
         if(req.status >= 200 && req.status < 400){
@@ -330,7 +331,7 @@ function runSearchMonsterList(mlist){
             clearSpace();
             sl.value = opt.textContent;
             req = new XMLHttpRequest();
-            req.open('GET', `/getMonsterById?mid=${opt.value}`, true);
+            req.open('GET', `${ROOT}/getMonsterById?mid=${opt.value}`, true);
             req.addEventListener('load', function(){
                 if(req.status >= 200 && req.status < 400){
                     console.log("Success: " + req.statusText);
@@ -402,7 +403,7 @@ function displayPartsByType(){
     let pType = document.getElementById('searchType').value;
     let mine = document.querySelector('#myParts').checked;
     req = new XMLHttpRequest();
-    req.open('GET', `/getAssemblyDisplayParts?pType=${pType}&mine=${mine}`, true); 
+    req.open('GET', `${ROOT}/getAssemblyDisplayParts?pType=${pType}&mine=${mine}`, true); 
     
     req.addEventListener('load',function(){ 
         if(req.status >= 200 && req.status < 400){
@@ -472,13 +473,13 @@ function displayPartsByType(){
 	    
 	}
 	else if(isNaN(mid)){
-            sendAddress = "/saveMonster";
+            sendAddress = `${ROOT}/saveMonster`;
             document.getElementById('saveName').textContent = "Save this Monstrous Creation?!?";
             document.getElementById('saveCanvas').textContent = "Save Monster";
             runSave();
 	}
 	else{
-            sendAddress = "/updateMonster";
+            sendAddress = `${ROOT}/updateMonster`;
             document.getElementById('saveName').textContent = "Update this Monsterous Creation?!?";
             document.getElementById('saveCanvas').textContent = "Update Monster";
             runSave();
@@ -583,7 +584,7 @@ function displayPartsByType(){
             let mid = document.getElementById('monName').getAttribute('data-mid');
             let name = document.getElementById('monName').value;
             let req = new XMLHttpRequest();
-            req.open('GET',`/updateMonsterName?mid=${mid}&name=${name}`,true); 
+            req.open('GET',`${ROOT}/updateMonsterName?mid=${mid}&name=${name}`,true); 
             req.addEventListener('load',function(response){
                 if(req.status >= 200 && req.status < 400){
                     console.log(`Success: ${req.statusText}`);

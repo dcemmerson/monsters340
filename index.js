@@ -1,3 +1,4 @@
+const ROOT = '/monsters';
 let bodyParser = require('body-parser');
 let path = require('path');
 let mysql = require('./dbcon.js');
@@ -38,7 +39,7 @@ app.use(session({
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-app.set('port', 10001);
+app.set('port', 10000);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
@@ -1016,7 +1017,7 @@ function comparePasswords(password,encryptedPassword,context,req,res){
         if(response){//successful
 	    req.session.userId = context.userId;
             req.session.loggedIn = true;
-            res.redirect('/home');
+            res.redirect(`${ROOT}/home`);
         }
         else{
             context.invalid = true;
@@ -1082,7 +1083,7 @@ app.post('/login', function (req, res, next) {
 app.get('/logout', function (req, res, next) {
     req.session.loggedIn = false;
     req.session.destroy();
-    res.redirect('/');
+    res.redirect(`${ROOT}/`);
 });
 //route used just to return logged in user's id client client side privilege checking...
 //need to actually perform privilege checking on client-side still, but client side
@@ -1603,7 +1604,7 @@ app.post('/createAccount',function(req,res){
 	
 	function complete(){
 	    req.session.userId = context.userId;
-	    res.redirect('home');
+	    res.redirect(`${ROOT}/home`);
 	}	
     }
 

@@ -71,9 +71,10 @@ let limitPerPage = 8; // constant for gallery page limit
 // no requirements
 function getPartNames(res, mysql, context, complete){
   mysql.pool.query(`SELECT id, type_name from part_types`, function(error, results, fields){
-    if(error){
-      res.write(JSON.stringify(error));
-      res.end();
+      if(error){
+	  console.log(error);
+	  res.write(JSON.stringify(error));
+	  res.end();
     }
     context.partType = results;
     complete();
@@ -88,6 +89,7 @@ function getUserPartsDraw(res, mysql, context, uid, complete){
     let insert = [uid];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -105,6 +107,7 @@ function getPartTypeId(res, mysql, context, type_name, complete){
     let insert = [type_name];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -123,6 +126,7 @@ function getUserPartsByTypeDraw(res, mysql, context, type, uid, complete){
     let insert = [uid, type];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -148,6 +152,7 @@ function getPartByName(res, mysql, context, name, uid, complete){
     }
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -175,6 +180,7 @@ function searchPartByName(res, mysql, context, name, uid, complete){
     }
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -192,6 +198,7 @@ function getPartById(res, mysql, context, partId, complete){
     let insert = [partId];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -208,6 +215,7 @@ function getPartListByType(res, mysql, context, type, complete){
     let insert = [type];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -223,6 +231,7 @@ function getUserPartListByType(res, mysql, context, type, uid, complete){
     let insert = [uid, type];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -238,6 +247,7 @@ function getMonsterList(res, mysql, context, uid, complete){
     let insert = [uid];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -254,6 +264,7 @@ function getMonsterAssemblyByName(res, mysql, context, name, complete){
     let insert = [name];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -271,6 +282,7 @@ function searchMonsterByName(res, mysql, context, uid, name, complete){
     let insert = [uid, name];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -288,6 +300,7 @@ function getMonsterAssemblyById(res, mysql, context, mid, complete){
     let insert = [mid];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -323,6 +336,7 @@ function getMonsterListBackground(res, mysql, context, uid, complete){
     let insert = [uid];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -338,6 +352,7 @@ function getMonsterCount(res, mysql, context, complete){
     let sql = 'select COUNT(`id`) as mTotal FROM monster';    
     mysql.pool.query(sql, function(error, results, fields){
         if(error){
+	    	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -351,6 +366,7 @@ function getUserMonsterCount(res, mysql, uid, context, complete){
     let insert = [uid];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -367,9 +383,10 @@ function getMonsterGallery(res, mysql, page, context, complete){
 //    console.log(`insert: ${[insert]}`);
     // let sql = 'SELECT u.username as userName, m.name as monsterName, m.file as monsterBlob, m.size as size, m.xCoord as xCoord, m.yCoord as yCoord, b.name as bgName, b.file as backgroundBlob, ub.username as backgroundUser FROM monster m INNER JOIN background b on m.backgroundId = b.id INNER JOIN user ub on b.userId = ub.id INNER JOIN user u on m.userId = u.id';
     mysql.pool.query(sql, insert, function(error, results, fields){
-    if(error){
-      res.write(JSON.stringify(error));
-      res.end();
+	if(error){
+	    console.log(error);
+	    res.write(JSON.stringify(error));
+	    res.end();
     }
     // console.log(`fields: ${[fields]}`);
 	complete(results);
@@ -383,7 +400,8 @@ function getUserMonsterGallery(res, mysql, uid, page, context, complete){
     let sql = `SELECT * FROM (SELECT u.username as userName, m.name as monsterName, m.file as monsterBlob, m.size as size, m.xCoord as xCoord, m.yCoord as yCoord, b.name as bgName, b.file as backgroundBlob, ub.username as backgroundUser,ROW_NUMBER() OVER (ORDER BY m.name ASC) AS RowNum FROM monster m INNER JOIN background b on m.backgroundId = b.id INNER JOIN user ub on b.userId = ub.id INNER JOIN user u on m.userId = u.id WHERE m.userId=?) as Results WHERE RowNum>? AND RowNum<=?`;
     let insert = [uid, (page-1)*limitPerPage, (page-1)*limitPerPage + limitPerPage];
     mysql.pool.query(sql, insert, function(error, results, fields){
-    if(error){
+	if(error){
+	    console.log(error);
       res.write(JSON.stringify(error));
       res.end();
     }
@@ -398,6 +416,7 @@ function getSingleGalleryById(res, mysql, mid, context, complete){
     let insert = [mid];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    	    console.log(error);
             res.write(JSON.strigify(error));
             res.end();
         }
@@ -450,6 +469,7 @@ function getUserBackgroundsDraw(res, mysql, context, uid, complete){
     let insert = [uid];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -469,6 +489,7 @@ function getBackgroundById(res, mysql, context, backgroundId, complete){
     let insert = [backgroundId];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -483,6 +504,7 @@ function getMonsterById(res, mysql, context, monsterId, complete){
     let insert = [monsterId];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -574,7 +596,8 @@ function getAllBackgrounds(res, mysql, context, complete){
     let sql = `SELECT id, name, file, userId FROM background`;
     mysql.pool.query(sql, function(error, results, fields){
         if(error){
-            res.write(JSON.stringify(error));
+	    console.log(error);
+	    res.write(JSON.stringify(error));
             res.end();
         }
 	
@@ -601,7 +624,8 @@ function getMyBackgrounds(res, mysql, context, userId, complete){
     let insert = [userId];
     mysql.pool.query(sql,insert, function(error, results, fields){
         if(error){
-            res.write(JSON.stringify(error));
+	    console.log(error);
+	    res.write(JSON.stringify(error));
             res.end();
         }
 	
@@ -627,7 +651,8 @@ function getAllMonsters(res, mysql, context, complete){
     let sql = `SELECT id, name, userId, backgroundId, size, xCoord, yCoord, file FROM monster`;
     mysql.pool.query(sql, function(error, results, fields){
         if(error){
-            res.write(JSON.stringify(error));
+	    console.log(error);
+	    res.write(JSON.stringify(error));
             res.end();
         }
 
@@ -659,6 +684,7 @@ function getMyMonsters(res, mysql, context, userId, complete){
 
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -689,7 +715,8 @@ function getSingleBackground(res, mysql, context, backgroundId, complete){
     let insert = [backgroundId];
     mysql.pool.query(sql,insert, function(error, results, fields){
         if(error){
-            res.write(JSON.stringify(error));
+	    console.log(error);
+	    res.write(JSON.stringify(error));
             res.end();
         }
 	
@@ -721,11 +748,10 @@ function updateMonsterBackground(req,res,mysql,context,userId,monsterId,backgrou
 	let sql = `UPDATE monster SET backgroundId=?,size=?,xCoord=?,yCoord=? WHERE id=?`;
 	let insert = [backgroundId,size,xCoord,yCoord,monsterId];
 	
-//	console.log(sql);
-//	console.log(insert);
 	mysql.pool.query(sql, insert,  function(error,results,flds){
             if(error){
-                res.write(JSON.stringify(err));
+		console.log(error);
+		res.write(JSON.stringify(err));
                 res.end();
             }
 	  
@@ -749,9 +775,10 @@ function insPart(res, mysql, context, name, typeId, blob, uid, complete){
     let sql = `INSERT INTO parts (name,type,file,userId) VALUES (?,?,?,?)`;
     let insert = [name, typeId, blob, uid];
     mysql.pool.query(sql, insert, function(error, results, fields){
-    if(error){
-      res.write(JSON.stringify(error));
-      res.end();
+	if(error){
+	    console.log(error);
+	    res.write(JSON.stringify(error));
+	    res.end();
     }
     context.results = results;
 
@@ -768,8 +795,9 @@ function insBackground(res, mysql, context, name, blob, uid, complete){
 
     mysql.pool.query(sql, insert, function(error, results, fields){
     if(error){
-      res.write(JSON.stringify(error));
-      res.end();
+	console.log(error);
+	res.write(JSON.stringify(error));
+	res.end();
     }
     context.results = results;
     complete();
@@ -789,7 +817,8 @@ function insMonster(res, mysql, context, name, blob, pArray, uid, complete){
 //    console.log(sql);
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
-            res.write(JSON.stringify(error));
+	    console.log(error);
+	    res.write(JSON.stringify(error));
             res.end();
         }
         //new monster id
@@ -806,7 +835,8 @@ function insMonster(res, mysql, context, name, blob, pArray, uid, complete){
 //        console.log([pArray]);
         mysql.pool.query(sql, [pArray], function(err,rsl,flds){
             if(error){
-                res.write(JSON.stringify(err));
+		console.log(error);
+		res.write(JSON.stringify(err));
                 res.end();
             }
 //            console.log(rsl.affectedRows);
@@ -877,8 +907,9 @@ function updatePart(res, mysql, context, name, typeId, blob, uid, partId, comple
     let insert = [name, typeId, blob, uid, partId];
     mysql.pool.query(sql, insert, function(error, results, fields){
     if(error){
-      res.write(JSON.stringify(error));
-      res.end();
+	console.log(error);
+	res.write(JSON.stringify(error));
+	res.end();
     }
     context.results = results;
     complete();
@@ -893,11 +924,11 @@ function updateBackground(res, mysql, context, name, blob, uid, backgroundId, co
     let insert = [name, blob, uid, backgroundId];
 
     mysql.pool.query(sql, insert, function(error, results, fields){
-    if(error){
-      res.write(JSON.stringify(error));
-      res.end();
+	if(error){
+	    console.log(error);
+	    res.write(JSON.stringify(error));
+	    res.end();
     }
-    console.log(insert);
     context.results = results;
     complete();
   });
@@ -912,6 +943,7 @@ function updateMonsterName(res, mysql, context, mid, name, complete){
     let insert = [name, mid];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -928,6 +960,7 @@ function updateMonsterBlob(res, mysql, context, mid, blob, complete){
     let insert = [blob, mid];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -945,6 +978,7 @@ function updateMonsterParts(res, mysql, context, mid, pArray, complete){
     let insert = [mid];
     mysql.pool.query(sql, insert, function(error, results, fields){
         if(error){
+	    console.log(error);
             res.write(JSON.stringify(error));
             res.end();
         }
@@ -954,6 +988,7 @@ function updateMonsterParts(res, mysql, context, mid, pArray, complete){
         }
         mysql.pool.query(sql, [pArray], function(err, res, flds){
             if(err){
+		console.log(err);
                 res.write(JSON.stringify(err));
                 res.end();
             }
@@ -1035,21 +1070,39 @@ function comparePasswords(password,encryptedPassword,context,req,res){
 //******************Render page routes*********************************//
 //login page
 app.get('/', function(req,res){
-  context = [];
-  context.title = 'Monster340';
-  context.layout = 'loginLayout';
-  res.render('login', context);
+    if(req.session.loggedIn) res.redirect(`${ROOT}/home`) 
+    else{
+	context = [];
+	context.title = 'Monster340';
+	context.layout = 'loginLayout';
+	context.script = ['login.js'];
+	res.render('login', context);
+    }
 });
-/*
-//remove this route to enable password authentication
-app.post('/login',function(req,res,next){
-    req.session.userId = 1;
-    req.session.loggedIn = true;
-    res.redirect('/home');    
+app.get('/withoutCredentials', function (req, res, next) {
+    var password = 'password';
+    var context = {};
+    getUserId(res,mysql,context,'anonymous',getAndComparePasswords);
+    
+    function getAndComparePasswords(err,results,fields){
+	if(results[0]) getUserPassword(res,mysql,context,results[0].id,compPass);
+	else{
+	    context.invalid = true;
+	    context.layout = 'loginLayout';
+	    res.render('login',context);
+	}
+	function compPass(results){
+	    if(results) comparePasswords(password,results,context,req,res);
+	    else{
+		context.invalid = true;
+		context.layout = 'loginLayout';
+		res.render('login',context);
+	    }
+	    
+	}
+    }
 });
-*/
 app.post('/login', function (req, res, next) {
-
     var password = req.body.password;
     var context = {};
     if(req.body.userName == '' || req.body.password == ''){

@@ -18,13 +18,9 @@ function getCount(complete){
 
     req.addEventListener('load', function(){
         if(req.status >= 200 && req.status < 400){
-            console.log(`Success: ${req.statusText}`);
             let counts = JSON.parse(req.responseText);
-            console.log(`resText: ${req.responseText}`);
             limitPerPage = counts.limitPerPage
-            console.log(`counts total: ${counts.mTotal}`);
             maxPages = Math.ceil(counts.mTotal/limitPerPage);
-            console.log(`max pages: ${maxPages}`)
             complete();
         }
         else{
@@ -37,16 +33,13 @@ function getCount(complete){
 
     // create search list and display part by name
 function getGallery(){
-    console.log('running');
     let mine = document.querySelector('#myMonstersOnly').checked;
     let req = new XMLHttpRequest();
     req.open('GET', `${ROOT}/getGallery?mine=${mine}&page=${page}`, true);
 
     req.addEventListener('load', function(){
         if(req.status >= 200 && req.status < 400){
-            console.log(`Success: ${req.statusText}`);
             let mlist = JSON.parse(req.responseText);
-            console.log(`mlist: ${mlist}`);
             for(let i = 0; i < mlist.length; i++){
                 makePic(mlist[i]);
             }
@@ -94,7 +87,6 @@ function makePic(pic){
             else {
                 animCount = 0;
             }
-            console.log('mouseover');
             let infoContainer = document.createElement('div');
             infoContainer.setAttribute('class', 'infoContainer');
             let monsterInfo = document.createElement('div');
@@ -119,19 +111,19 @@ function makePic(pic){
             animContainer.appendChild(anim);
             document.body.appendChild(infoContainer);
             galleryDisplay.appendChild(animContainer);
-            document.body.addEventListener('click', ()=>{
-                document.body.removeChild(infoContainer);
-                galleryDisplay.removeChild(animContainer);
-            });
-        });
-        galleryDisplay.appendChild(div);
+            document.body.addEventListener('click',removeInfoContainer);
+	    
+	    function removeInfoContainer(){
+		document.body.removeEventListener('click',removeInfoContainer);
+		document.body.removeChild(infoContainer);
+		galleryDisplay.removeChild(animContainer);
+	    }	    
+	});
+    galleryDisplay.appendChild(div);
 }
-
-
 
 // place pagination elements
 function makePages(){
-    console.log('run makePages');
     if(maxPages > 1){
         if(page == 1){
             let pointerR = document.createElement('div');
@@ -208,7 +200,6 @@ document.getElementById('searchMonsterName').addEventListener('input', function(
 
     req.addEventListener('load', function(){
         if(req.status >= 200 && req.status < 400){
-            console.log(`Success: ${req.statusText}`);
             let mlist = JSON.parse(req.responseText);
             runSearchMonsterList(mlist);
         }
@@ -237,7 +228,6 @@ function runSearchMonsterList(mlist){
             req.open('GET', `${ROOT}/getSingleGalleryById?mid=${opt.value}`, true);
             req.addEventListener('load', function(){
                 if(req.status >= 200 && req.status < 400){
-                    console.log("Success: " + req.statusText);
                     document.getElementById('searchMonsterNameList').innerHTML = '';
                     let retPic = JSON.parse(req.responseText);
                     clearPageRow();

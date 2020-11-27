@@ -7,7 +7,7 @@ Chrisopher Elliott and I built this app together as a project for CS340 at Orego
 
 This project is built on the back-end with a NodeJS server and MariaDB for the database, and on the front-end with JavaScript, CSS, and HTML on the frontend.
 
-Try is out!
+Try it out!
 -----------
 The app is currently hosted at [demedia.app/monsters](https://demedia.app/monsters). Make an account and we'll keep track of your creations.
 
